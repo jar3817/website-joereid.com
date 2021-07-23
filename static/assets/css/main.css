@@ -1,0 +1,75 @@
+@import url("/assets/css/bootstrap.min.css");
+@import url("/assets/css/fonts.css");
+
+body, html {
+	height: 100%;
+	min-height: 100%;
+	background-color: #000000;
+	height: 100%;
+        margin: 0;
+        font-family: 'Jura', sans-serif;
+        color: #777;
+}
+
+@media (max-width: 767px) {
+	body {
+		font-size: 12pt;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	body {
+		font-size: 13pt;
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	body {
+		font-size: 14pt;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	body {
+		font-size: 16pt;
+	}
+}
+
+#hello {	
+	background-image: url("/assets/img/joe-2017-1920.jpg");
+	background-repeat:no-repeat;
+	min-height: 400px;
+	color: #333;
+	text-shadow: -1px 0 #ccc, 0 1px #ccc, 1px 0 #ccc, 0 -1px #ccc;
+}
+
+#hello > p {
+	padding: 80px 0 0 175px;
+	font-size: 2em;
+}
+
+#about {
+	text-align: center;
+	font-size: 1.3em;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.spacer {
+	min-height: 100px;
+	background-color: #ddd;
+}
+
+#contacts > li {
+	display: inline;
+}
+
+.contact > img {
+	max-width: 40px;
+	max-height: auto;
+}
+
