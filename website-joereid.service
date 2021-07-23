@@ -1,0 +1,22 @@
+#
+# Simple systemd service to auto start the website and keep it running
+# Edit and copy (or symlink) to /etc/systemd/system/
+#
+
+[Unit]
+ Description=Joe's Personal Webiste (joereid.com)
+ ConditionPathExists=/path/to/website/root
+ After=network.target
+
+[Service]
+ Type=simple
+ User=www-data
+ Group=www-data
+ ExecStart=/path/to/website/root/startscript.sh
+ TimeoutSec=0
+ StandardOutput=tty
+ RemainAfterExit=yes
+ SysVStartPriority=99
+ 
+[Install]
+ WantedBy=default.target
