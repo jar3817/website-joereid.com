@@ -9,6 +9,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var AID string
+
 type IndexData struct {
 	Title      string
 	Adsense_ID string // via env variable
@@ -18,11 +20,9 @@ type IndexData struct {
  * Handle requests for the index page
  */
 func index(w http.ResponseWriter, r *http.Request) {
-	aid := os.Getenv("AID")
-
 	data := IndexData{
 		Title:      "Joe Reid",
-		Adsense_ID: aid,
+		Adsense_ID: AID,
 	}
 
 	t, _ := template.ParseFiles("template/index.tmpl")
@@ -32,13 +32,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	logfile, err := os.OpenFile("joereid.com.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
-	}
-
-	log.SetOutput(logfile)
 	r := mux.NewRouter()
 
 	// catch any requests for "real" files (css, js, images, etc)
@@ -48,4 +41,16 @@ func main() {
 	r.HandleFunc("/", index)
 
 	http.ListenAndServe(":8087", r)
+}
+
+func init() {
+	logfile, err := os.OpenFile("access.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+
+	log.SetOutput(logfile)
+
+	AID = os.Getenv("AID")
 }
