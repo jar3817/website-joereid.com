@@ -24,6 +24,7 @@ var (
 	Log           = flag.String("log", "website.log", "File to log to")
 	Help          = flag.Bool("help", false, "Show help")
 	Foreground    = flag.Bool("f", false, "Start in foreground mode, don't log to file")
+	Webroot       = flag.String("webroot", "~/public_html/joereid.com", "Where to find assets")
 	IndexTemplate *template.Template
 	err           error
 )
@@ -43,7 +44,7 @@ func main() {
 	r := mux.NewRouter()
 
 	// catch any requests for "real" files (css, js, images, etc)
-	r.PathPrefix("/assets/").Handler(http.FileServer(http.Dir("static/")))
+	r.PathPrefix("/assets/").Handler(http.FileServer(http.Dir(*Webroot + "/static/")))
 
 	r.HandleFunc("/", index)
 
@@ -81,7 +82,7 @@ func init() {
 		log.SetOutput(logfile)
 	}
 
-	IndexTemplate, err = template.ParseFiles("template/index.tmpl")
+	IndexTemplate, err = template.ParseFiles(*Webroot + "/template/index.tmpl")
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
